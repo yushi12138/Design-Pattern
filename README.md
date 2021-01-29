@@ -76,7 +76,109 @@ And some other category of design pattern : **J2EE Design Pattern**
 ## II. Patterns
 
 #### 1. Factory Pattern
-![]()
+
+- one of the most used design pattern in java
+- comes under creational pattern,  which provide ways to create an object
+- **Advantage** : create object without exposing creation logic to the client and refer to newly created object using common interface
+
+**Example**
+
+We have **TeslaFactory** class, which will return specific object implements interface **ElectricVehicle**.
+
+Different classes (**CyberTruck, ModelS, ModelX**) implement ElectricVehicle interface.
 
 
+
+![](https://github.com/yushi12138/Design-Pattern/blob/main/Patterns/src/factory/Factory_UML.png?raw=true)
+
+
+
+
+
+```java
+package factory;
+
+public class FactoryPatternDemo {
+
+    public static interface ElectricVehicle {
+        void charge();
+        void drive();
+    }
+    
+    public static class CyberTruck implements ElectricVehicle {
+        public void charge() {
+            System.out.println("CyberTruck is charging!");
+        }
+
+        public void drive() {
+            System.out.println("Driving the CyberTruck!");
+        }
+    }
+
+    public static class ModelS implements ElectricVehicle {
+        public void charge() {
+            System.out.println("Model-S is charging!");
+        }
+
+        public void drive() {
+            System.out.println("Driving the Model-X!");
+        }
+    }
+
+    public static class ModelX implements ElectricVehicle {
+        public void charge() {
+            System.out.println("Model-X is charging!");
+        }
+
+        public void drive() {
+            System.out.println("Driving the Model-X!");
+        }
+    }
+
+    public static class TeslaFactory {
+        public static ElectricVehicle getVehicle(String type) {
+            if (type == null || type.length() == 0) {
+                System.out.println("Input shouldn't be empty!");
+                return null;
+            }
+            switch (type) {
+                case "cybertruck":
+                    return new CyberTruck();
+                case "models":
+                    return new ModelS();
+                case "modelx":
+                    return new ModelX();
+                default:
+                    System.out.println("Type is not available : " + type);
+                    return null;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        ElectricVehicle cybertruck = TeslaFactory.getVehicle("cybertruck");
+        cybertruck.charge();
+        cybertruck.drive();
+        ElectricVehicle models = TeslaFactory.getVehicle("models");
+        models.charge();
+        models.drive();
+        ElectricVehicle modelx = TeslaFactory.getVehicle("modelx");
+        modelx.charge();
+        modelx.drive();
+        /*
+            output :
+            CyberTruck is charging!
+            Driving the CyberTruck!
+            Model-S is charging!
+            Driving the Model-X!
+            Model-X is charging!
+            Driving the Model-X!
+         */
+    }
+}
+
+
+
+
+```
 
